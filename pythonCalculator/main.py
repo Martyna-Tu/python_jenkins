@@ -40,15 +40,19 @@ if __name__ == "__main__":
 
             if choice == 'Add':
                 print(num1, "+", num2, "=", add(num1, num2))
+                return add(num1, num2))
 
             elif choice == 'Sub':
                 print(num1, "-", num2, "=", subtract(num1, num2))
+                retrun subtract(num1, num2))
 
             elif choice == 'Mul':
                 print(num1, "*", num2, "=", multiply(num1, num2))
+                return multiply(num1, num2))
 
             elif choice == 'Div':
                 print(num1, "/", num2, "=", divide(num1, num2))
+                return divide(num1, num2))
 
             # check if user wants another calculation
             # break the while loop if answer is no
