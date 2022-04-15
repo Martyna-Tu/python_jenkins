@@ -1,0 +1,50 @@
+pipeline {
+    environment {
+        FOO = "initial FOO env value"
+    }
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '20')
+        timestamps()
+    }
+    parameters {
+        choice choices: ['Add', 'Sub', 'Div', 'Mul'], description: '', name: 'Operation_type'
+        string defaultValue: '', description: '', name: 'First_Number', trim: false
+        string defaultValue: '', description: '', name: 'Second_Number', trim: false
+    }
+    triggers {
+		//upstream 'Params'
+		//upstream threshold: 'FAILURE', upstreamProjects: 'Options'
+		pollSCM 'H/5 * * * *'
+	}
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Martyna-Tu/python_jenkins.git']]])
+            }
+        }
+        stage('Build') {
+            steps{
+                script {
+                    def foo= sh(  returnStdout: true, script: 'python3 pythonCalculator/main.py ${Operation_type} ${First_Number} ${Second_Number}')
+                    env.FOO =  foo
+                    println foo
+                }
+            }
+        }
+        stage('Tests') {
+            steps{
+                sh 'python3 pythonCalculator/tests.py '
+            }
+        }
+        stage("Descriprion") {
+            steps {
+                script {
+                    currentBuild.description = "Operation type :    ${Operation_type}\nNum1 :    ${First_Number}\nNum2 :    ${Second_Number}\nWynik:  ${env.FOO}"
+                }
+            }
+        }
+    }
+}
+
