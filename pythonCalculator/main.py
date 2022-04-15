@@ -35,8 +35,8 @@ if __name__ == "__main__":
         if choice in ('Add', 'Sub', 'Div', 'Mul'):
             #num1 = float(input("Enter first number: "))
             #num2 = float(input("Enter second number: "))
-            num1 = sys.argv[2]
-            num2 = sys.argv[3]
+            num1 = float(sys.argv[2])
+            num2 = float(sys.argv[3])
 
             if choice == 'Add':
                 print(num1, "+", num2, "=", add(num1, num2))
