@@ -1,5 +1,4 @@
 # Program make a simple calculator
-import sys
 
 # This function adds two numbers
 def add(x, y):
@@ -29,14 +28,12 @@ if __name__ == "__main__":
 
     while True:
         # take input from the user
-        #choice = input("Enter choice(Add/Sub/Div/Mul): ")
-        choice = sys.argv[1]
+        choice = input("Enter choice(Add/Sub/Div/Mul): ")
+
         # check if choice is one of the four options
         if choice in ('Add', 'Sub', 'Div', 'Mul'):
-            #num1 = float(input("Enter first number: "))
-            #num2 = float(input("Enter second number: "))
-            num1 = float(sys.argv[2])
-            num2 = float(sys.argv[3])
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
 
             if choice == 'Add':
                 print(num1, "+", num2, "=", add(num1, num2))
