@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
             elif choice == 'Sub':
                 print(num1, "-", num2, "=", subtract(num1, num2))
-                retrun subtract(num1, num2)
+                return subtract(num1, num2)
 
             elif choice == 'Mul':
                 print(num1, "*", num2, "=", multiply(num1, num2))
