@@ -8,14 +8,13 @@ pipeline {
     }
     parameters {
         choice choices: ['Add', 'Sub', 'Div', 'Mul'], description: '', name: 'Operation_type'
-        string defaultValue: '', description: '', name: 'First_Number', trim: false
-        string defaultValue: '', description: '', name: 'Second_Number', trim: false
+        string defaultValue: '1', description: '', name: 'First_Number', trim: false
+        string defaultValue: '1', description: 'if you choice division remember to not divide by 0', name: 'Second_Number', trim: false
     }
     triggers {
-		//upstream 'Params'
-		//upstream threshold: 'FAILURE', upstreamProjects: 'Options'
 		pollSCM 'H/5 * * * *'
 	}
+	
     agent any
 
     stages {
@@ -29,7 +28,7 @@ pipeline {
                 script {
                     def foo= sh(  returnStdout: true, script: 'python3 pythonCalculator/main.py ${Operation_type} ${First_Number} ${Second_Number}')
                     env.FOO =  foo
-                    println foo
+                    println(foo)
                 }
             }
         }
@@ -47,4 +46,3 @@ pipeline {
         }
     }
 }
-
